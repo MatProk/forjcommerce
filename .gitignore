@@ -1,76 +1,29 @@
-.DS_STORE
+HELP.md
+/target/
+!.mvn/wrapper/maven-wrapper.jar
 
-/dist/
-/bazel-*
-/integration/bazel/bazel-*
-e2e_test.*
-node_modules
-bower_components
-tools/gulp-tasks/cldr/cldr-data/
-
-# Include when developing application packages.
-pubspec.lock
-.c9
-.idea/
-.settings/
-*.swo
-modules/.settings
-.vscode
-modules/.vscode
-
-# Don't check in secret files
-*secret.js
-
-# Ignore npm/yarn debug log
-npm-debug.log
-yarn-error.log
-
-# build-analytics
-.build-analytics
-
-# rollup-test output
-/modules/rollup-test/dist/
-
-# User specific bazel settings
-.bazelrc.user
-
-*#
-*.iml
-*.ipr
-*.iws
-*.jar
-*.sw?
-*~
-.#*
-.*.md.html
-.DS_Store
+### STS ###
+.apt_generated
 .classpath
 .factorypath
-.gradle
-.idea
-.metadata
 .project
-.recommenders
 .settings
 .springBeans
-/build
-/code
-MANIFEST.MF
-_site/
-activemq-data
-bin
-build
-build.log
-dependency-reduced-pom.xml
-dump.rdb
-interpolated*.xml
-lib/
-manifest.yml
-overridedb.*
-settings.xml
-target
-transaction-logs
-.flattened-pom.xml
-secrets.yml
-.gradletasknamecache
 .sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+/build/
+
+### VS Code ###
+.vscode/
