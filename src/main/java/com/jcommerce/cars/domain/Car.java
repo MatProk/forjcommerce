@@ -31,7 +31,6 @@ public class Car {
     @Column(nullable = false)
     private FuelType fuelType;
 
-    @Length(max = 100, min = 5)
     @Column(nullable = false)
     private int powerHp;
 

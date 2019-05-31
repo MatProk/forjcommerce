@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
+import { CarService } from '../services/car.service';
 
 @Component({
   selector: 'app-home',
@@ -12,14 +13,16 @@ export class HomeComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
-  constructor() { }
+  constructor(private carService: CarService) { }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
+    this.carService.getCars().subscribe(res => {
+      console.log(res);
+    });
   }
-
 }
 
 export interface PeriodicElement {
