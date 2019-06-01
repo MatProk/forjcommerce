@@ -5,6 +5,7 @@ import { CarService } from '../services/car.service';
 import { FormControl, FormGroupDirective, NgForm, Validators, FormGroup } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material';
 import { CarExample } from '../services/car.resource';
+import { TokenStorageService } from '../auth/token-storage.service';
 declare var bootbox:any;
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -65,17 +66,18 @@ export class HomeComponent implements OnInit {
   ]);
 
   matcher = new MyErrorStateMatcher();
+  token;
 
   displayedColumns: string[] = ['id', 'carBrand', 'carModel', 'show', 'edit', 'delete'];
   dataSource = new MatTableDataSource();
   searchResult;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private carService: CarService){}
+  constructor(private tokenStorage: TokenStorageService, private carService: CarService){}
 
   ngOnInit() {
+    this.token = this.tokenStorage.getToken();
     this.carService.getCars().subscribe (res => {
-      console.log(res);
       this.searchResult = res;
       this.dataSource.data = this.searchResult;
       this.dataSource = new MatTableDataSource(this.searchResult);
@@ -88,6 +90,18 @@ export class HomeComponent implements OnInit {
     { id : '0', clientName: 'Benzyna'},
     { id : '1', clientName: 'Olej napedowy'}
   ];
+
+  deleteCar(id: number){
+    this.carService.deleteCar(id).subscribe(res => {
+      this.carService.getCars().subscribe (res => {
+        console.log(res);
+        this.searchResult = res;
+        this.dataSource.data = this.searchResult;
+        this.dataSource = new MatTableDataSource(this.searchResult);
+        this.dataSource.paginator = this.paginator;
+      });
+    });
+  }
 
   addCar(){
     this.submitted = true;
