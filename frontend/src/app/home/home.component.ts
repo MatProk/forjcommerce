@@ -5,6 +5,7 @@ import { CarService } from '../services/car.service';
 import { FormControl, FormGroupDirective, NgForm, Validators, FormGroup } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material';
 import { CarExample } from '../services/car.resource';
+import { TokenStorageService } from '../auth/token-storage.service';
 declare var bootbox:any;
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -65,15 +66,17 @@ export class HomeComponent implements OnInit {
   ]);
 
   matcher = new MyErrorStateMatcher();
+  token;
 
   displayedColumns: string[] = ['id', 'carBrand', 'carModel', 'show', 'edit', 'delete'];
   dataSource = new MatTableDataSource();
   searchResult;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private carService: CarService){}
+  constructor(private tokenStorage: TokenStorageService, private carService: CarService){}
 
   ngOnInit() {
+    this.token = this.tokenStorage.getToken();
     this.carService.getCars().subscribe (res => {
       console.log(res);
       this.searchResult = res;
@@ -88,6 +91,18 @@ export class HomeComponent implements OnInit {
     { id : '0', clientName: 'Benzyna'},
     { id : '1', clientName: 'Olej napedowy'}
   ];
+
+  deleteCar(id: number){
+    this.carService.deleteCar(id).subscribe(res => {
+      this.carService.getCars().subscribe (res => {
+        console.log(res);
+        this.searchResult = res;
+        this.dataSource.data = this.searchResult;
+        this.dataSource = new MatTableDataSource(this.searchResult);
+        this.dataSource.paginator = this.paginator;
+      });
+    });
+  }
 
   addCar(){
     this.submitted = true;
@@ -122,5 +137,43 @@ export class HomeComponent implements OnInit {
       
     });
   }
+
+  isEditing = false;
+
+  updateCar(){
+    let zmienna = this.car.id;
+    console.log(this.car.id)
+    this.carService.updateCar(zmienna, this.car).subscribe(data => {
+      this.isEditing = false;
+      this.carBrandFormControl.reset();
+      this.carModelFormControl.reset();
+      this.engineFormControl.reset();
+      this.fuelFormControl.reset();
+      this.powerHpFormControl.reset();
+      this.descriptionFormControl.reset();
+      this.dateOfProductionFormControl.reset();
+      console.log("pykło");
+    })
+}
+
+startEdit(carId: number){
+  this.carService.getOneCar(carId).subscribe(data => {
+    console.log(data);
+    this.car = data;
+
+    let dateString = data.dateOfProduction.toString(); 
+    this.car.dateOfProduction = new Date(dateString);
+
+    if(data.fuelType == "DIESEL"){
+      this.selectedValue = "1";
+      console.log(this.selectedValue);
+    }
+    else{
+      this.selectedValue = "0";
+      console.log(this.selectedValue);
+    }
+  })
+  this.isEditing = true;
+}
 }
 

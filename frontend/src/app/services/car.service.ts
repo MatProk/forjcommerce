@@ -29,7 +29,7 @@ export class CarService {
   getCars(): Observable<any> {
     return this.http.get(this.carsApi, this.httpOptions);
   }
-  deleteCars(carId: number) {
+  deleteCar(carId: number) {
     return this.http.delete(this.carsApi + '/' + carId, this.httpOptions);
   }
   updateCar(carId: number, car: CarExample): Observable<CarExample> {

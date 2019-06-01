@@ -1,3 +1,51 @@
-<p>
-  register works!
-</p>
+<div style="text-align:center; margin:10px;" *ngIf="isSignedUp; else signupForm">
+  <b>Zostales poprawnie zarejstrowany. Zaloguj sie aby zobaczyc zawartosc</b>
+</div>
+ 
+<ng-template #signupForm>
+   <div class="center-div">
+     <b style="font-size: 50px;">REJESTRACJA</b><br><br>
+     <hr>
+      <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+          <div class="form-group">
+            <label for="name">Imie i nazwisko</label>
+            <input type="text" class="form-control" name="name" [(ngModel)]="form.name" #name="ngModel" required />
+            <div *ngIf="f.submitted && name.invalid">
+              <div *ngIf="name.errors.required">Imie i nazwisko jest wymagane</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="username">Nazwa uzytkownika</label>
+            <input type="text" class="form-control" name="username" [(ngModel)]="form.username" #username="ngModel"
+              required />
+            <div *ngIf="f.submitted && username.invalid">
+              <div *ngIf="username.errors.required">Nazwa uzytkownika jest wymagana</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Adres email</label>
+            <input type="text" class="form-control" name="email" [(ngModel)]="form.email" #email="ngModel" required email />
+            <div *ngIf="f.submitted && email.invalid">
+              <div *ngIf="email.errors.required">Adres email jest wymagany</div>
+              <div *ngIf="email.errors.email">Adres email musi byc poprawny</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password">Haslo</label>
+            <input type="password" class="form-control" name="password" [(ngModel)]="form.password" #password="ngModel"
+              required minlength="6" />
+            <div *ngIf="f.submitted && password.invalid">
+              <div *ngIf="password.errors.required">Haslo jest wymagane</div>
+              <div *ngIf="password.errors.minlength">Haslo musi posiadac minimum 6 znakow</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary">Zarejstruj</button>
+            <div *ngIf="f.submitted && isSignUpFailed" class="alert alert-warning">
+              Blad podczas rejestracji
+            </div>
+          </div>
+        </form>
+        <hr>
+  </div>
+</ng-template>

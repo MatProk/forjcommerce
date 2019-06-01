@@ -14,7 +14,7 @@ public class CarRequest {
     private FuelType fuelType;
     private int powerHp;
     private String description;
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "MM/dd/yyyy")
     private Date dateOfProduction;
     private String payload;
 
