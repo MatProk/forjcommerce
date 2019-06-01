@@ -1,0 +1,107 @@
+  <div style="margin: auto; width: 80%;" class="mat-elevation-z8">
+    <table style="width:100%; margin-top: 100px;" mat-table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="id">
+        <th style="text-align: center;" mat-header-cell *matHeaderCellDef> Id </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="carBrand">
+        <th style="text-align: center;" mat-header-cell *matHeaderCellDef> Marka </th>
+        <td mat-cell *matCellDef="let element"> {{element.carBrand}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="carModel">
+        <th style="text-align: center;" mat-header-cell *matHeaderCellDef> Model </th>
+        <td mat-cell *matCellDef="let element"> {{element.carModel}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="show">
+        <th style="text-align: center;" mat-header-cell *matHeaderCellDef> Szczegóły </th>
+        <td mat-cell *matCellDef="let element"> <button mat-raised-button color="primary">Pokaż</button> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <th style="text-align: center;" mat-header-cell *matHeaderCellDef> Usuń </th>
+        <td mat-cell *matCellDef="let element"> <button mat-raised-button color="warn">Usuń</button> </td>
+      </ng-container>
+
+      <ng-container style="text-transform: center;" matColumnDef="edit">
+        <th style="text-align: center;" mat-header-cell *matHeaderCellDef> Edytuj </th>
+        <td mat-cell *matCellDef="let element"> <button mat-raised-button color="yellow">Edytuj</button> </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+  <br><br>
+<div style="text-align:center;">
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input [(ngModel)]="car.carBrand" matInput placeholder="Marka auta" [formControl]="carBrandFormControl"
+             [errorStateMatcher]="matcher">
+      <mat-error *ngIf="submitted && carBrandFormControl.hasError('required')">
+        Marka jest <strong>wymagana</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="example-full-width">
+      <input [(ngModel)]="car.carModel" matInput placeholder="Model auta" [formControl]="carModelFormControl"
+             [errorStateMatcher]="matcher">
+      <mat-error *ngIf="submitted && carModelFormControl.hasError('required')">
+        Model jest <strong>wymagany</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="example-full-width">
+      <input [(ngModel)]="car.engine" matInput placeholder="Silnik" [formControl]="engineFormControl"
+             [errorStateMatcher]="matcher">
+      <mat-error *ngIf="submitted && engineFormControl.hasError('required')">
+        Silnik jest <strong>wymagany</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="example-full-width">
+      <mat-select placeholder="Paliwo" [formControl]="fuelFormControl"
+      [errorStateMatcher]="matcher" [(ngModel)]="selectedValue" name="fuel" (change)="takeValue($event.value)">
+        <mat-option *ngFor="let client of clients; let i = index;" [value]="i">
+          {{client.clientName}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="submitted && fuelFormControl.hasError('required')">
+        Paliwo jest <strong>wymagane</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="example-full-width">
+      <input [(ngModel)]="car.powerHp" type="number" matInput placeholder="Moc(KM)" [formControl]="powerHpFormControl"
+             [errorStateMatcher]="matcher">
+      <mat-error *ngIf="submitted && powerHpFormControl.hasError('required')">
+        Moc jest <strong>wymagana</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="example-full-width">
+      <textarea [(ngModel)]="car.description" matInput placeholder="Opis auta" [formControl]="descriptionFormControl"
+             [errorStateMatcher]="matcher"></textarea>
+      <mat-error *ngIf="submitted && descriptionFormControl.hasError('required')">
+        Opis jest <strong>wymagany</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="example-full-width">
+      <input [(ngModel)]="car.dateOfProduction" matInput [matDatepicker]="picker" [formControl]="dateOfProductionFormControl"
+        [errorStateMatcher]="matcher" placeholder="Data produkcji">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="submitted && descriptionFormControl.hasError('required')">
+        Data produkcji jest <strong>wymagana</strong>
+      </mat-error>
+    </mat-form-field>
+  </form>
+  <button (click)="addCar()" mat-raised-button color="primary">Dodaj auto</button>
+</div>
+<div style="margin-bottom: 100px;"></div>

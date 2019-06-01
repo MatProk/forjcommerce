@@ -31,7 +31,6 @@ public class Car {
     @Column(nullable = false)
     private FuelType fuelType;
 
-    @Length(max = 100, min = 5)
     @Column(nullable = false)
     private int powerHp;
 
@@ -41,7 +40,7 @@ public class Car {
     private String description;
 
     @Column(nullable = false)
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dateOfProduction;
 
     @Lob
