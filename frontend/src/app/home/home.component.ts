@@ -78,6 +78,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.token = this.tokenStorage.getToken();
     this.carService.getCars().subscribe (res => {
+      console.log(res);
       this.searchResult = res;
       this.dataSource.data = this.searchResult;
       this.dataSource = new MatTableDataSource(this.searchResult);

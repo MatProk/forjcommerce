@@ -19,7 +19,7 @@
 
       <ng-container matColumnDef="show">
         <th style="text-align: center;" mat-header-cell *matHeaderCellDef> Szczegóły </th>
-        <td mat-cell *matCellDef="let element"> <button mat-raised-button color="primary">Pokaż</button> </td>
+        <td mat-cell *matCellDef="let element"> <button mat-raised-button color="primary" [routerLink]="element.id">Pokaż</button> </td>
       </ng-container>
 
       <ng-container matColumnDef="delete">
