@@ -40,7 +40,7 @@ public class Car {
     private String description;
 
     @Column(nullable = false)
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "MM/dd/yyyy")
     private Date dateOfProduction;
 
     @Lob

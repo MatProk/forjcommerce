@@ -137,5 +137,43 @@ export class HomeComponent implements OnInit {
       
     });
   }
+
+  isEditing = false;
+
+  updateCar(){
+    let zmienna = this.car.id;
+    console.log(this.car.id)
+    this.carService.updateCar(zmienna, this.car).subscribe(data => {
+      this.isEditing = false;
+      this.carBrandFormControl.reset();
+      this.carModelFormControl.reset();
+      this.engineFormControl.reset();
+      this.fuelFormControl.reset();
+      this.powerHpFormControl.reset();
+      this.descriptionFormControl.reset();
+      this.dateOfProductionFormControl.reset();
+      console.log("pykło");
+    })
+}
+
+startEdit(carId: number){
+  this.carService.getOneCar(carId).subscribe(data => {
+    console.log(data);
+    this.car = data;
+
+    let dateString = data.dateOfProduction.toString(); 
+    this.car.dateOfProduction = new Date(dateString);
+
+    if(data.fuelType == "DIESEL"){
+      this.selectedValue = "1";
+      console.log(this.selectedValue);
+    }
+    else{
+      this.selectedValue = "0";
+      console.log(this.selectedValue);
+    }
+  })
+  this.isEditing = true;
+}
 }
 
