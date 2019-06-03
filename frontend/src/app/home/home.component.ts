@@ -7,6 +7,7 @@ import { ErrorStateMatcher } from '@angular/material';
 import { CarExample } from '../services/car.resource';
 import { TokenStorageService } from '../auth/token-storage.service';
 declare var bootbox:any;
+import { ToastrService } from 'ngx-toastr'; 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -73,7 +74,7 @@ export class HomeComponent implements OnInit {
   searchResult;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private tokenStorage: TokenStorageService, private carService: CarService){}
+  constructor(private toastr: ToastrService, private tokenStorage: TokenStorageService, private carService: CarService){}
 
   ngOnInit() {
     this.token = this.tokenStorage.getToken();
@@ -94,6 +95,7 @@ export class HomeComponent implements OnInit {
 
   deleteCar(id: number){
     this.carService.deleteCar(id).subscribe(res => {
+      this.toastr.error('Pomyslnie usunieto auto');
       this.carService.getCars().subscribe (res => {
         console.log(res);
         this.searchResult = res;
@@ -125,6 +127,7 @@ export class HomeComponent implements OnInit {
       this.powerHpFormControl.reset();
       this.descriptionFormControl.reset();
       this.dateOfProductionFormControl.reset();
+      this.toastr.success('Pomyslnie dodano auto', 'Sukces!');
       this.carService.getCars().subscribe (res => {
         console.log(res);
         this.searchResult = res;
@@ -152,7 +155,7 @@ export class HomeComponent implements OnInit {
       this.powerHpFormControl.reset();
       this.descriptionFormControl.reset();
       this.dateOfProductionFormControl.reset();
-      console.log("pykło");
+      this.toastr.info('Pomyslnie zaktualizowano auto', 'Sukces!');
     })
 }
 

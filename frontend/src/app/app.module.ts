@@ -19,6 +19,7 @@ import { FooterComponent } from './footer/footer.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AboutComponent } from './about/about.component';
 import { CarDetailsComponent } from './car-details/car-details.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { CarDetailsComponent } from './car-details/car-details.component';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     MatTableModule,
     MatPaginatorModule,
     MatButtonModule,
