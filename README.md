@@ -1,4 +1,4 @@
-# Project for recrutation in JCommerce company.
+# Project na zadanie rekrutacyjne dla firmy JCommerce.
 
 # Wymagane:<br>
 -Node.js<br>
