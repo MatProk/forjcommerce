@@ -48,8 +48,8 @@ export class LoginComponent implements OnInit {
         this.isLoggedIn = true;
         this.tokenStorage.loggedIn.emit(true);
         this.roles = this.tokenStorage.getAuthorities();
-        //return this.router.navigateByUrl('/home')
         this.reloadPage();
+        return this.router.navigateByUrl('/')
       },
       error => {
         console.log(error);
