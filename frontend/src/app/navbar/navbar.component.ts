@@ -18,6 +18,11 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.tokenStorage.signOut();
+    this.reloadPage();
+    return this.router.navigateByUrl('/')
+  }
+
+  reloadPage() {
     window.location.reload();
   }
 

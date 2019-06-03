@@ -165,11 +165,11 @@ startEdit(carId: number){
     this.car.dateOfProduction = new Date(dateString);
 
     if(data.fuelType == "DIESEL"){
-      this.selectedValue = "1";
+      this.selectedValue = '1';
       console.log(this.selectedValue);
     }
-    else{
-      this.selectedValue = "0";
+    else if(data.fuelType == "PETROL"){
+      this.selectedValue = '0';
       console.log(this.selectedValue);
     }
   })
