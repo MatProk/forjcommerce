@@ -1,0 +1,25 @@
+version: '3.1'
+services:
+  adminer:
+    image: adminer
+    ports:
+      - "8090:8080"
+    restart: 'no'
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: carsdb
+    ports:
+      - "5432:5432"
+    restart: 'no'
+    volumes:
+      - db_data:/var/lib/postgresql/data
+#  docker-jpa-app:
+#    image: docker-jpa-app
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - db
+volumes:
+  db_data:
